@@ -1,22 +1,22 @@
-# 🎵 YouTube to MIDI Converter
+# YouTube to MIDI Converter
 
 Convert audio files and YouTube videos to MIDI using client-side piano transcription powered by Magenta.js and TensorFlow.js.
 
-## ✨ Features
+## Features
 
-- **🎹 Piano Transcription**: High-quality audio-to-MIDI conversion using Google's Magenta.js OnsetsAndFrames model
-- **🌐 Client-Side Processing**: All heavy computation runs in your browser using your device's CPU/GPU - no server required!
-- **📥 YouTube Downloads**: Download and convert YouTube videos via Vercel serverless API
-- **📁 Local Files**: Upload and convert local audio files (MP3, WAV, FLAC, M4A, OGG, etc.)
-- **⚙️ Advanced Settings**:
+- **Piano Transcription**: High-quality audio-to-MIDI conversion using Google's Magenta.js OnsetsAndFrames model
+- **Client-Side Processing**: All heavy computation runs in your browser using your device's CPU/GPU - no server required
+- **YouTube Downloads**: Download and convert YouTube videos via Vercel serverless API
+- **Local Files**: Upload and convert local audio files (MP3, WAV, FLAC, M4A, OGG, etc.)
+- **Advanced Settings**:
   - Audio trimming (start/end time)
   - Note duration filtering
   - Custom output filenames
   - Batch processing
   - ZIP packaging for multiple files
-- **💾 Privacy**: Your audio files never leave your computer (except YouTube URLs which are processed via API)
+- **Privacy**: Your audio files never leave your computer (except YouTube URLs which are processed via API)
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Local Development
 
@@ -33,7 +33,7 @@ Convert audio files and YouTube videos to MIDI using client-side piano transcrip
 3. **Open in browser:**
    - Navigate to `http://localhost:5173` (or the port shown in terminal)
 
-4. **Upload audio or paste YouTube URL and convert!**
+4. **Upload audio or paste YouTube URL and convert**
 
 ### Building for Production
 
@@ -43,11 +43,11 @@ npm run build
 
 The built files will be in the `dist` directory.
 
-## 🌍 Deploying to Vercel
+## Deploying to Vercel
 
 ### Prerequisites
 - GitHub account
-- Vercel account (free tier works!)
+- Vercel account (free tier works)
 
 ### Deployment Steps
 
@@ -66,17 +66,17 @@ The built files will be in the `dist` directory.
 
 3. **Deploy:**
    - Click "Deploy"
-   - Wait for build to complete (~2-3 minutes)
-   - Your app is live! 🎉
+   - Wait for build to complete (approximately 2-3 minutes)
+   - Your app is live
 
 4. **Future Deployments:**
    - Every push to `main` branch auto-deploys
    - Pull requests get preview deployments
 
 ### Environment Variables
-No environment variables required! Everything runs client-side.
+No environment variables required. Everything runs client-side.
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 youtube-to-midi/
@@ -98,7 +98,7 @@ youtube-to-midi/
 └── README.md                   # This file
 ```
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 ### Frontend (Client-Side)
 - **Magenta.js**: Piano transcription model (OnsetsAndFrames)
@@ -112,7 +112,7 @@ youtube-to-midi/
 - **Vercel Serverless Functions**: YouTube audio download API
 - **ytdl-core**: YouTube download library
 
-## 🎯 How It Works
+## How It Works
 
 1. **Audio Input**: User provides YouTube URL or uploads local audio file
 2. **Download/Load**: YouTube audio downloaded via API, or local file loaded
@@ -124,16 +124,16 @@ youtube-to-midi/
 5. **MIDI Generation**: Notes converted to MIDI file using @tonejs/midi
 6. **Download**: MIDI file (and optional audio) downloaded to user's device
 
-## ⚡ Performance Notes
+## Performance Notes
 
 - **First Load**: Model downloads ~50MB on first use (cached after)
 - **Processing Speed**: Depends on your device's CPU/GPU
   - Desktop: Usually faster than real-time
   - Laptop: About real-time
   - Mobile: May be slower than real-time
-- **File Size Limits**: Browser memory limits may restrict very long files (>10 minutes on lower-end devices)
+- **File Size Limits**: Browser memory limits may restrict very long files (more than 10 minutes on lower-end devices)
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### Model Loading Issues
 - **Symptom**: "Failed to load model"
@@ -160,25 +160,25 @@ youtube-to-midi/
   - Use audio trimming feature
   - Close other browser tabs
 
-## 📝 Known Limitations
+## Known Limitations
 
 - **No Transkun model**: Only Piano Transcription model is available (browser-compatible)
 - **No cookie authentication**: YouTube downloads work without auth (may fail for age-restricted videos)
 - **YouTube playlist support**: Currently processes individual videos only
 - **Audio quality**: Best results with solo piano recordings
 
-## 🤝 Contributing
+## Contributing
 
-This project was migrated from Google Colab Python to a client-side web application. Contributions welcome!
+This project was migrated from Google Colab Python to a client-side web application. Contributions welcome.
 
-## 📄 License
+## License
 
 This project uses:
 - Magenta.js (Apache 2.0)
 - TensorFlow.js (Apache 2.0)
 - FFmpeg.wasm (LGPL 2.1)
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Google Magenta team for the OnsetsAndFrames model
 - TensorFlow.js team for making ML in the browser possible
@@ -187,4 +187,4 @@ This project uses:
 
 ---
 
-**Ready to convert some audio to MIDI? Start the dev server and give it a try!** 🎹
+Ready to convert some audio to MIDI? Start the dev server and give it a try.
