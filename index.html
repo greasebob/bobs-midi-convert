@@ -598,23 +598,11 @@
     <div id="app">
       <div class="header">
                 <h1>🎵 YouTube to MIDI</h1>
-
-                <!-- Debug Button -->
-                <button class="debug-btn" onclick="toggleDebug()">🐛 Debug Info</button>
-
-                <!-- Debug Output Section -->
-                <div class="debug-section" id="debugSection">
-                    <div class="debug-header">
-                        <h3 class="debug-title">🔍 Debug Information</h3>
-                        <button class="debug-refresh-btn" onclick="refreshDebug()">↻ Refresh</button>
-                    </div>
-                    <pre class="debug-output" id="debugOutput"></pre>
-                </div>
             </div>
 
-            <!-- Fullscreen Tip Banner -->
+            <!-- Info Banner -->
             <div class="tip-banner">
-                💡 <strong>Tip:</strong> Click 'Code cell output actions' (top left of output cell) → 'View output fullscreen' for best experience
+                💡 <strong>Tip:</strong> All processing happens in your browser using your device's CPU/GPU - your audio files never leave your computer!
             </div>
 
             <!-- YouTube URLs -->
@@ -650,7 +638,7 @@ Add one URL per line for batch processing"></textarea>
 
             <!-- Settings -->
             <div class="card">
-                <div class="collapsible-header" onclick="toggleSettings()">
+                <div class="collapsible-header">
                     <div class="card-title" style="margin: 0;">⚙️ Conversion Settings</div>
                     <span class="toggle-icon" id="toggleIcon">▼</span>
                 </div>
@@ -789,28 +777,12 @@ Add one URL per line for batch processing"></textarea>
                 </div>
             </div>
 
-            <!-- Cookie Upload -->
-            <div class="card">
-                <div class="card-title-with-info">
-                    🍪 Cookie File (Optional)
-                    <span class="info-icon">i
-                        <span class="info-tooltip">Export cookies.txt from your browser using a cookie extension while logged into YouTube</span>
-                    </span>
-                </div>
-                <p class="hint" style="margin-bottom: 15px;">Upload cookies.txt if YouTube blocks downloads or for age-restricted videos</p>
-                <input type="file" id="cookieInput" style="display: none;" accept=".txt">
-                <button class="cookie-btn" onclick="document.getElementById('cookieInput').click()">
-                    📄 Upload Cookie File
-                </button>
-                <div class="cookie-info" id="cookieInfo"></div>
-            </div>
-
             <!-- Action Buttons -->
             <div class="button-group">
-                <button class="btn btn-primary" id="convertBtn" onclick="startConversion()" disabled>
+                <button class="btn btn-primary" id="convertBtn" disabled>
                     Convert to MIDI
                 </button>
-                <button class="btn btn-cancel" id="cancelBtn" onclick="cancelConversion()" disabled>
+                <button class="btn btn-cancel" id="cancelBtn" disabled>
                     Cancel
                 </button>
             </div>
@@ -830,7 +802,7 @@ Add one URL per line for batch processing"></textarea>
             <div class="card results-section" id="resultsSection">
                 <div class="card-title">📊 Processing Log</div>
                 <div class="log-container" id="processingLog"></div>
-                <button class="btn-download" id="downloadBtn" onclick="downloadMIDI()">
+                <button class="btn-download" id="downloadBtn">
                     ⬇️ Download MIDI Files
                 </button>
             </div>
