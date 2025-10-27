@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@ybd-project/ytdl-core": "^4.11.15"
+  }
+}
