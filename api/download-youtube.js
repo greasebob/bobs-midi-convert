@@ -24,6 +24,16 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
+  // Change working directory to /tmp (writable directory on Vercel)
+  // This allows ytdl-core to write debug files
+  const originalCwd = process.cwd();
+  try {
+    process.chdir('/tmp');
+    console.log('Changed working directory to /tmp');
+  } catch (err) {
+    console.error('Failed to change to /tmp:', err);
+  }
+
   try {
     const { url } = req.body;
 
