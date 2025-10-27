@@ -3,7 +3,8 @@
  * Downloads audio from YouTube URL and returns it to the client
  */
 
-import { YtdlCore } from '@ybd-project/ytdl-core';
+import pkg from '@ybd-project/ytdl-core';
+const { YtdlCore } = pkg;
 
 // Initialize ytdl instance for serverless environment
 const ytdl = new YtdlCore();
