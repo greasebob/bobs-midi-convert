@@ -3,7 +3,7 @@
  * Downloads audio from YouTube URL and returns it to the client
  */
 
-import { YtdlCore, toPipeableStream } from '@ybd-project/ytdl-core/serverless';
+import { YtdlCore } from '@ybd-project/ytdl-core/serverless';
 
 // Initialize ytdl instance for serverless environment
 const ytdl = new YtdlCore();
@@ -37,8 +37,11 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'YouTube URL is required' });
     }
 
-    if (!ytdl.validateURL(url)) {
-      return res.status(400).json({ error: 'Invalid YouTube URL' });
+    // Simple YouTube URL validation (validateURL doesn't exist in YBD fork)
+    const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/).+/;
+    if (!youtubeRegex.test(url)) {
+      console.log('Invalid YouTube URL format:', url);
+      return res.status(400).json({ error: 'Invalid YouTube URL format' });
     }
 
     // Get video info first
@@ -47,9 +50,8 @@ export default async function handler(req, res) {
     const title = info.videoDetails.title;
     console.log('Video title:', title);
 
-    // Collect audio data in buffer for Vercel serverless
+    // Download audio data (non-streaming approach for Vercel)
     console.log('Starting audio download...');
-    const chunks = [];
 
     // Use serverless-optimized download method
     const stream = await ytdl.download(url, {
@@ -57,43 +59,36 @@ export default async function handler(req, res) {
       filter: 'audioonly',
     });
 
-    // Convert to pipeable stream for Node.js
-    const audioStream = toPipeableStream(stream);
-
-    audioStream.on('data', (chunk) => {
+    console.log('Converting stream to buffer...');
+    // Convert async iterator to buffer (non-streaming for Vercel compatibility)
+    const chunks = [];
+    for await (const chunk of stream) {
       chunks.push(chunk);
-    });
+    }
 
-    audioStream.on('end', () => {
-      console.log('Audio download complete, sending to client...');
-      const buffer = Buffer.concat(chunks);
+    console.log('Audio download complete, sending to client...');
+    const buffer = Buffer.concat(chunks);
 
-      res.setHeader('Content-Type', 'audio/mpeg');
-      res.setHeader('Content-Disposition', `attachment; filename="${sanitizeFilename(title)}.mp3"`);
-      res.setHeader('Content-Length', buffer.length);
+    // Send response
+    res.setHeader('Content-Type', 'audio/mpeg');
+    res.setHeader('Content-Disposition', `attachment; filename="${sanitizeFilename(title)}.mp3"`);
+    res.setHeader('Content-Length', buffer.length);
 
-      res.status(200).send(buffer);
-    });
-
-    audioStream.on('error', (error) => {
-      console.error('Stream error:', error);
-      if (!res.headersSent) {
-        res.status(500).json({
-          error: 'Failed to download audio from YouTube',
-          details: error.message
-        });
-      }
-    });
+    res.status(200).send(buffer);
 
   } catch (error) {
-    console.error('YouTube download error:', error);
+    console.error('=== YouTube Download Error ===');
+    console.error('Error name:', error.name);
+    console.error('Error message:', error.message);
     console.error('Error stack:', error.stack);
+    console.error('Error object:', JSON.stringify(error, Object.getOwnPropertyNames(error)));
 
     if (!res.headersSent) {
       return res.status(500).json({
         error: 'Failed to download from YouTube',
         details: error.message,
-        type: error.name
+        type: error.name,
+        hint: 'Check Vercel function logs for detailed error information'
       });
     }
   }
