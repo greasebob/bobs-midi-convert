@@ -3,11 +3,7 @@
  * Downloads audio from YouTube URL and returns it to the client
  */
 
-import pkg from '@ybd-project/ytdl-core';
-const { YtdlCore } = pkg;
-
-// Initialize ytdl instance for serverless environment
-const ytdl = new YtdlCore();
+import ytdl from '@ybd-project/ytdl-core';
 
 export default async function handler(req, res) {
   // Handle CORS preflight
@@ -47,21 +43,20 @@ export default async function handler(req, res) {
 
     // Get video info first
     console.log('Fetching video info...');
-    const info = await ytdl.getBasicInfo(url);
+    const info = await ytdl.getInfo(url);
     const title = info.videoDetails.title;
     console.log('Video title:', title);
 
-    // Download audio data (non-streaming approach for Vercel)
+    // Download audio data (classic ytdl-core approach)
     console.log('Starting audio download...');
 
-    // Use serverless-optimized download method
-    const stream = await ytdl.download(url, {
+    const stream = ytdl(url, {
       quality: 'highestaudio',
       filter: 'audioonly',
     });
 
     console.log('Converting stream to buffer...');
-    // Convert async iterator to buffer (non-streaming for Vercel compatibility)
+    // Convert stream to buffer
     const chunks = [];
     for await (const chunk of stream) {
       chunks.push(chunk);
