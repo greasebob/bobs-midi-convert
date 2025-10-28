@@ -3,6 +3,8 @@
  * Client-side audio-to-MIDI transcription using Magenta.js
  */
 
+// New Collaborator: John
+
 import { FileHandler } from './modules/fileHandler.js';
 import { YouTubeDownloader } from './modules/youtubeDownloader.js';
 import { AudioProcessor } from './modules/audioProcessor.js';
